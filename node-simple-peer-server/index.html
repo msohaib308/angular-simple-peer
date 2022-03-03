@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      return;
+      var username = prompt('Enter User Name');
+      let socket = io('', {
+        reconnectionDelayMax: 10000,
+        // auth: {
+        //   username: username
+        // },
+        query: {
+          "username": username
+        }
+      });
+      // let socket = io('https://socket-io-node-demo.herokuapp.com/');
+      var el;
+
+      socket.on('time', (timeString) => {
+        el = document.getElementById('server-time');
+        el.innerHTML = 'Server time: ' + timeString;
+      });
+      socket.on("connect", () => {
+        console.log(socket.connected); // true
+      });
+      socket.emit("ferret", "tobi", (data) => {
+        console.log(data); // data will be "woot"
+      });
+      socket.on('message', function (message) {
+        console.log(message);
+      });
+      socket.on('newMessage', function (message) {
+        var nDiv = document.getElementById('NewMessagesId');
+        nDiv.innerHTML += `<p>${message}</p>`;
+      });
+      socket.on("users", (users) => {
+        users.forEach((user) => {
+          user.self = user.userID === socket.id;
+          // initReactiveProperties(user);
+        });
+        // put the current user first, and then sort by username
+        this.users = users.sort((a, b) => {
+          if (a.self) return -1;
+          if (b.self) return 1;
+          if (a.username < b.username) return -1;
+          return a.username > b.username ? 1 : 0;
+        });
+        el = document.getElementById('server-time');
+        el.innerHTML = JSON.stringify(this.users);
+      });
+      function SendMessageTOUserName() {
+        var username = document.getElementById('userName').value;
+        var message = document.getElementById('messageText').value;
+        const dObj = {
+          username,
+          message
+        }
+        socket.emit("callUserName", dObj);
+      }
+    </script>
+  </head>
+  <body>
+    <h3>Users List</h3>
+    <p id="server-time"></p>
+    <h3>Send Any User Message</h3>
+    <label>Enter User Name</label>
+    <input type="text" id="userName">
+    <br>
+    <br>
+    <label>Enter Message</label>
+    <br>
+    <textarea name="messageTextName" id="messageText" cols="30" rows="10"></textarea>
+    <br>
+    <br>
+    <button type="button" onclick="SendMessageTOUserName()">Send</button>
+    <br>
+    <br>
+    <div id="NewMessagesId"></div>
+  </body>
+</html>
