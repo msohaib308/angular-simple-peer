@@ -16,8 +16,7 @@ export class SocketService {
   constructor() { }
 
   connect() {
-    // this.socket = io('http://localhost:3000')
-    this.socket = io('https://doctooric-socket.herokuapp.com')
+    this.socket = io('http://localhost:3000')
   }
 
   private listen(channel: string, fn: Function) {
