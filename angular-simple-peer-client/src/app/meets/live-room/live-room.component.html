@@ -10,11 +10,11 @@
           </div>
 
           <div class="justify-content-center overlay-item">
-            <button type="button" class="btn btn-success">
-              <i class="fa fa-microphone"></i>
+            <button type="button" class="btn btn-success" (click)="SwitchMic()">
+              <i class="fa" [class.fa-microphone]="micState" [class.fa-microphone-slash]="!micState"></i>
             </button>
-            <button type="button" class="btn btn-primary m-1">
-              <i class="fa fa-video-camera text-light"></i>
+            <button type="button" class="btn btn-primary m-1" (click)="SwitchCamera()">
+              <i class="fa text-light" [class.fa-video-camera]="camState" [class.fa-video-camera-slash]="!camState"></i>
             </button>
           </div>
           <div *ngIf="peersList && peersList.length" class=" flex-nowrap room-members" style="display: grid;
