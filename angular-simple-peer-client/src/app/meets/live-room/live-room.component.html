@@ -1,0 +1,40 @@
+<div class="bg-dark position-relative">
+  <div class="container">
+    <div class=" no-gutters " style="height:100vh">
+      <div class=" w-100 overlay-container position-relative" style="height:100vh" >
+          <div class="position-absolute" style="right: 20px;top:40px;z-index: 9999;">
+            <video  style="width:300px;height: 180px;object-fit: cover;border-radius: 20px;"  autoplay #myVideo>          </video>
+            <div style="position:absolute;bottom:15px;left:20px;">
+              <h6 style="margin:0;color:#fff;">You</h6>
+            </div>
+          </div>
+
+          <div class="justify-content-center overlay-item">
+            <button type="button" class="btn btn-success">
+              <i class="fa fa-microphone"></i>
+            </button>
+            <button type="button" class="btn btn-primary m-1">
+              <i class="fa fa-video-camera text-light"></i>
+            </button>
+          </div>
+          <div *ngIf="peersList && peersList.length" class=" flex-nowrap room-members" style="display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-gap: 2px;">
+            <div *ngFor="let mitronPeer of peersList">
+                <video class="w-100  my-4" style="object-fit: cover; height: calc(100vh - 100px);border-radius: 5px;" [id]="mitronPeer?.peerId" autoplay  #peerVideo></video>
+            </div>
+            <div style="position:absolute;bottom:85px;left:40px;">
+              <h6 style="margin:0;color:#fff;">Remote</h6>
+            </div>
+          </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
