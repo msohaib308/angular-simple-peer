@@ -22,6 +22,8 @@ export class LiveRoomComponent implements OnInit {
     {urls:'stun:stun3.l.google.com:19302'},
     {urls:'stun:stun4.l.google.com:19302'},
   ];
+  micState = true;
+  camState = true;
   constructor(private socketService: SocketService, private route: ActivatedRoute) {
    }
 
@@ -157,6 +159,16 @@ export class LiveRoomComponent implements OnInit {
       }
 
       video.play()
+  }
+  SwitchMic() {
+    const myStream = this.myVideo.nativeElement.srcObject as MediaStream;
+    this.micState = !this.micState;
+    myStream.getAudioTracks().forEach(track => track.enabled = this.micState);
+  }
+  SwitchCamera() {
+    const myStream = this.myVideo.nativeElement.srcObject as MediaStream;
+    this.camState = !this.camState;
+    myStream.getVideoTracks().forEach(track => track.enabled = this.camState);
   }
 
 }
