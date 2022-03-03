@@ -1,4 +1,4 @@
-# sj-node-simple-peer-socket.io
+# Angular Simple-Peer NodeJs Socket.io
 
 WebRTC using simple-peer Angular
 
